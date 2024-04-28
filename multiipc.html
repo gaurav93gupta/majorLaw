@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MultiSec</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #272727;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #numbersInput {
+    flex: 1;
+    min-width: 250px; /* Adjusted for responsiveness */
+    height: 20px;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: bolder;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-bottom: 10px; /* Adjusted for responsiveness */
+}
+
+#gaurav{
+    width: 70px;
+    height: 40px;
+    background-color: rgba(77, 250, 86, 0.781);
+    font-weight: bolder;
+}
+
+body{
+    background-color: rgb(248, 242, 234);
+}
+    </style>
+</head>
+<body>
+    <h2>Enter Multiple IPC Sections </h2>
+    <input type="text" id="numbersInput" placeholder="Enter Sections (Eg: 302,406,123,567 )">
+    <button  id="gaurav"  onclick="lookupData()">CLICK</button>
+
+    <h3>Bhartiya Nyay Sanhita,2023:</h3>
+    <div id="output"></div>
+
+    <table id="dataTable">
+        <tr>
+            <th>IPC Section</th>
+            <th>Bhartiya Nyay Sanhita , 2023
+            </th>
+        </tr>
+    </table>
+
+    <script>
+        async function fetchTableData() {
+            const response = await fetch('data.json');
+            const data = await response.json();
+            return data;
+        }
+
+        async function lookupData() {
+            var input = document.getElementById("numbersInput").value;
+            var numbers = input.split(",");
+            var outputDiv = document.getElementById("output");
+            var dataTable = document.getElementById("dataTable");
+            outputDiv.innerHTML = "";
+            dataTable.innerHTML = "<tr><th>IPC Section</th><th>Bhartiya Nyay Sanhita Section</th></tr>";
+
+            const tableData = await fetchTableData();
+
+            for (var i = 0; i < numbers.length; i++) {
+                var number = numbers[i].trim();
+                var rowData = tableData.find(row => row.number === number);
+
+                if (rowData) {
+                    dataTable.innerHTML += "<tr><td>" + rowData.number + "</td><td>" + rowData.data + "</td></tr>";
+                } else {
+                    outputDiv.innerHTML += "<p>No data found for " + number + "</p>";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

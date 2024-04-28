@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #beddf7;
+            margin: 0;
+            padding: 0;
+			text-align: center;
+            
+
+            /* background-image: url('BHARAT.png') ;
+            background-size: 25% ;
+            background-position: center ;
+            back
+            background-repeat: no-repeat;
+            background-blend-mode: soft-light; */
+        }
+
+		#gupta{
+			margin-right: 20px;
+			position: relative;
+			margin-top: 20px;
+			margin-left: 1200px;
+			
+		}
+
+        #gaurav {
+            position: relative;
+            top: 20px;
+            left: 20px;
+            z-index: 999;
+            display: inline-block;
+        }
+
+        #weight{
+            height: 35px;
+            width: 200 px;
+            text-align: center;
+            border: 3px solid;
+            font-weight: bolder;
+            font-size: 16;
+            
+            
+            
+            
+        }
+
+		.button {
+			background-color: rgb(8, 182, 13);
+			width: 200px;
+			font-size: 20px;
+			padding: 10px;
+			border-radius: 5px;
+			border: 3px solid rgb(0, 0, 0);
+			color: rgb(255, 255, 255);
+			text-align: center;
+			margin-right: 20px;
+			font-weight: bold;
+
+			
+		  }
+        .mybtn{
+            color: rgb(71, 238, 91);
+            font-weight: bold;
+            height: auto;
+            width: auto;
+        }
+
+        #search-box {
+            width: 300px;
+            padding: 10px;
+            font-size: 25;
+            border: none;
+            border-radius: 5px;
+            background-color: #ffffff;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+      
+
+        
+        .autocomplete-items {
+            position: absolute;
+            top: calc(100% + 3px);
+            left: 0;
+            right: 0;
+            border: 0px solid #d4d4d4;
+            border-radius: 5px;
+            max-height:fit-content;
+            overflow-y: auto;
+            background-color: #ffffff;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 998;
+            text-align: left;
+        }
+
+        
+        .autocomplete-item {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .autocomplete-item:hover {
+            background-color: #f1f1f1;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: centre;
+        }
+        
+		
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+			margin-top: 10px;
+			font-weight: bold;
+        }
+        
+        
+
+        #panel {
+            background-color: #b8e9fc;
+            border-radius: 10px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+            align-items: center;
+        }
+
+        h1, h2, h3, h4 {
+            text-align: center;
+            color: #333333;
+        }
+        h2{
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+	
+    <div id="gaurav">
+        <input type="text" id="search-box" placeholder="Type Keyword to search Old CrPC section">
+        <div class="autocomplete-items" id="autocomplete-items"></div>
+		
+    </div>
+
+    <div class="container">
+        
+
+        <div class="panel">
+            <h3>Criminal Procedure Code to Bhartiya Nagrik Suraksha Sanhita, 2023</h3>
+            
+            <form class="grv">
+                <div id="weightInput">
+                    <input id="weight" placeholder="Enter CrPC Section...">
+                </div>
+                <button type="button" class="btn" id="mybtn" onclick="calculate()">CLICK</button>
+            </form>
+            <h4>Bhartiya Nagrik Suraksha Sanhita,2023 Section:</h4>
+            <div id="results"></div>
+        </div>
+    </div>
+
+
+
+   <script>
+        const data = [
+
+        ' 1: Short title, extent and commencement '  , 
+        ' 2: Definitions '  , 
+        ' 3: Construction of references '  , 
+        ' 4: Trial of offences under the Indian Penal Code and other laws '  , 
+        ' 5: Saving '  , 
+        ' 6: Classes of Criminal Courts '  , 
+        ' 7: Territorial divisions '  , 
+        ' 8: Metropolitan areas '  , 
+        ' 8: Metropolitan areas '  , 
+        ' 9: Court of Session '  , 
+        ' 10: Subordination of Assistant Sessions Judges '  , 
+        ' 10: Subordination of Assistant Sessions Judges '  , 
+        ' 11: Courts of Judicial Magistrates '  , 
+        ' 12: Chief Judicial Magistrate and Additional Chief Judicial Magistrate, etc '  , 
+        ' 13: Special Judicial Magistrates '  , 
+        ' 14: Local jurisdiction of Judicial Magistrates '  , 
+        ' 15: Subordination of Judicial Magistrates '  , 
+        ' 16:Courts of Metropolitan Magistrates '  , 
+        ' 16: Courts of Metropolitan Magistrates '  , 
+        ' 17: Chief Metropolitan Magistrate and Additional Chief Metropolitan Magistrate '  , 
+        ' 17: Chief Metropolitan Magistrate and Additional Chief Metropolitan Magistrate '  , 
+        ' 18: Special Metropolitan Magistrates '  , 
+        ' 18: Special Metropolitan Magistrates '  , 
+        ' 19: Subordination of Metropolitan Magistrates '  , 
+        ' 19: Subordination of Metropolitan Magistrates '  , 
+        ' 20: Executive Magistrates '  , 
+        ' 21: Special Executive Magistrates '  , 
+        ' 22: Local Jurisdiction of Executive Magistrates '  , 
+        ' 23: Subordination of Executive Magistrates '  , 
+        ' 24: Public Prosecutors '  , 
+        ' 25: Assistant Public Prosecutors '  , 
+        ' 26: Courts by which offences are triable '  , 
+        ' 27: Jurisdiction in the case of juveniles '  , 
+        ' 27: Jurisdiction in the case of juveniles '  , 
+        ' 28: Sentences which High Courts and Sessions Judges may pass '  , 
+        ' 29: Sentences which Magistrates may pass '  , 
+        ' 30: Sentence of imprisonment in default of fine '  , 
+        ' 31: Sentence in cases of conviction of several offences at one trial '  , 
+        ' 32: Mode of conferring powers '  , 
+        ' 33: Powers of officers appointed '  , 
+        ' 34: Withdrawal of powers '  , 
+        ' 35: Powers of Judges and Magistrates exercisable by their successors-in-office '  , 
+        ' 36: Powers of superior officers of police '  , 
+        ' 37: Public when to assist Magistrates and police '  , 
+        ' 38: Aid to person, other than police officer, executing warrant '  , 
+        ' 39: Public to give information of certain offences '  , 
+        ' 40: Duty of officers employed, in connection with the affairs of a village to make certain report '  , 
+        ' 41: When police may arrest without warrant '  , 
+        ' 42: Arrest on refusal to give name and residence '  , 
+        ' 43: Arrest by private person and procedure on such arrest '  , 
+        ' 44: Arrest by Magistrate '  , 
+        ' 45: Protection of members of the Armed Forces from arrest '  , 
+        ' 46: Arrest how made '  , 
+        ' 47: Search of place entered by person sought to be arrested '  , 
+        ' 48: Pursuit of offenders into other jurisdictions '  , 
+        ' 49: No unnecessary restraint '  , 
+        ' 50: Person arrested to be informed of grounds of arrest and of right to bail '  , 
+        ' 51: Search of arrested person '  , 
+        ' 52: Power to seize offensive weapons '  , 
+        ' 53: Examination of accused by medical practitioner at the request of police officer '  , 
+        ' 54: Examination of arrested person by medical officer '  , 
+        ' 55: Procedure when police officer deputes subordinate to arrest without warrant '  , 
+        ' 56: Person arrested to be taken before Magistrate or officer in charge of police station '  , 
+        ' 57: Person arrested not to be detained more than twenty-four hours '  , 
+        ' 58: Police to report apprehensions '  , 
+        ' 59: Discharge of person apprehended '  , 
+        ' 60: Power, on escape, to pursue and retake '  , 
+        ' 61: Form of summons '  , 
+        ' 62: Summons how served '  , 
+        ' 63: Service of summons on corporate bodies and societies '  , 
+        ' 64: Service when persons summoned cannot be found '  , 
+        ' 65: Procedure when service cannot be effected as before provided '  , 
+        ' 66: Service on Government servant '  , 
+        ' 67: Service of summons outside local limits '  , 
+        ' 68: Proof of service in such cases and when serving officer not present '  , 
+        ' 69: Service of summons on witness by post '  , 
+        ' 70: Form of warrant of arrest and duration '  , 
+        ' 71: Power to direct security to be taken '  , 
+        ' 72: Warrants to whom directed '  , 
+        ' 73: Warrant may be directed to any person '  , 
+        ' 74: Warrant directed to police officer '  , 
+        ' 75: Notification of substance of warrant '  , 
+        ' 76: Person arrested to be brought before Court without delay '  , 
+        ' 77: Where warrant may be executed '  , 
+        ' 78: Warrant forwarded for execution outside jurisdiction '  , 
+        ' 79: Warrant directed to police officer for execution outside jurisdiction '  , 
+        ' 80: Procedure on arrest of person against whom warrant issued '  , 
+        ' 81: Procedure by Magistrate before whom such person arrested is brought '  , 
+        ' 82: Proclamation for person absconding '  , 
+        ' 83: Attachment of property of person absconding '  , 
+        ' 84: Claims and objections to attachment '  , 
+        ' 85: Release, sale and restoration of attached property '  , 
+        ' 86: Appeal from order rejecting application for restoration of attached property '  , 
+        ' 87: Issue of warrant in lieu of, or in addition to, summons '  , 
+        ' 88: Power to take bond for appearance '  , 
+        ' 89: Arrest on breach of bond for appearance '  , 
+        ' 90: Provisions of this Chapter generally applicable to summonses and warrants of arrest '  , 
+        ' 91: Summons to produce document or other thing '  , 
+        ' 92: Procedure as to letters and telegrams '  , 
+        ' 93: When search-warrant may be issued '  , 
+        ' 94: Search of place suspected to contain stolen property, forged documents, etc '  , 
+        ' 95: Power to declare certain publications forfeited and to issue search-warrants for the same '  , 
+        ' 96: Application to High Court to set aside declaration of forfeiture '  , 
+        ' 97: Search for persons wrongfully confined '  , 
+        ' 98: Power to compel restoration of abducted females '  , 
+        ' 99: Direction, etc , of search-warrants '  , 
+        ' 100: Persons in charge of closed place to allow search '  , 
+        ' 101: Disposal of things found in search beyond jurisdiction '  , 
+        ' 102: Power of police officer to seize certain property '  , 
+        ' 103: Magistrate may direct search in his presence '  , 
+        ' 104: Power to impound document, etc , produced '  , 
+        ' 105: Reciprocal arrangements regarding processes '  , 
+        ' 106: Security for keeping the peace on conviction '  , 
+        ' 107: Security for keeping the peace in other cases '  , 
+        ' 108: Security for good behaviour from persons disseminating seditious matters '  , 
+        ' 109: Security for good behaviour from suspected persons '  , 
+        ' 110: Security for good behaviour from habitual offenders '  , 
+        ' 111: Order to be made '  , 
+        ' 112: Procedure in respect of person present in Court '  , 
+        ' 113: Summons or warrant in case of person not so present '  , 
+        ' 114: Copy of order to accompany summons or warrant '  , 
+        ' 115: Power to dispense with personal attendance '  , 
+        ' 116: Inquiry as to truth of information '  , 
+        ' 117: Order to give security '  , 
+        ' 118: Discharge of person informed against '  , 
+        ' 119: Commencement of period for which security is required '  , 
+        ' 120: Contents of bond '  , 
+        ' 121: Power to reject sureties '  , 
+        ' 122: Imprisonment in default of security '  , 
+        ' 123: Power to release persons imprisoned for failing to give security '  , 
+        ' 124: Security for unexpired period of bond '  , 
+        ' 125: Order for maintenance of wives, children and parents '  , 
+        ' 126: Procedure '  , 
+        ' 127: Alteration in allowance '  , 
+        ' 128: Enforcement of order of maintenance '  , 
+        ' 129: Dispersal of assembly by use of civil force '  , 
+        ' 130: Use of armed forces to disperse assembly '  , 
+        ' 131: Power of certain armed force officers to disperse assembly '  , 
+        ' 132: Protection against prosecution for acts done under preceding sections '  , 
+        ' 133: Conditional order for removal of nuisance '  , 
+        ' 134: Service or notification of order '  , 
+        ' 135: Person to whom order is addressed to obey or show cause '  , 
+        ' 136: Consequences of his failing to do so '  , 
+        ' 136: Consequences of his failing to do so '  , 
+        ' 137: Procedure where existence of public right is denied '  , 
+        ' 138: Procedure where he appears to show cause '  , 
+        ' 139: Power of Magistrate to direct local investigation and examination of an expert '  , 
+        ' 140: Power of Magistrate to furnish written instructions, etc '  , 
+        ' 141: Procedure on order being made absolute and consequences of disobedience '  , 
+        ' 142: Injunction pending inquiry '  , 
+        ' 143: Magistrate may prohibit repetition or continuance of public nuisance '  , 
+        ' 144: Power to issue order in urgent cases of nuisance or apprehended danger '  , 
+        ' 145: Procedure where dispute concerning land or water is likely to cause breach of peace '  , 
+        ' 146: Power to attach subject of dispute and to appoint receiver '  , 
+        ' 147: Dispute concerning right of use of land or water '  , 
+        ' 148: Local inquiry '  , 
+        ' 149: Police to prevent cognizable offences '  , 
+        ' 150: Information of design to commit cognizable offences '  , 
+        ' 151: Arrest to prevent the commission of cognizable offences '  , 
+        ' 152: Prevention of injury to public property '  , 
+        ' 153: Inspection of weights and measures '  , 
+        ' 153: Inspection of weights and measures '  , 
+        ' 154: Information in cognizable cases '  , 
+        ' 155: Information as to non-cognizable cases and investigation of such cases '  , 
+        ' 156: Police officer’s power to investigate cognizable case '  , 
+        ' 157: Procedure for investigation '  , 
+        ' 158: Report how submitted '  , 
+        ' 159: Power to hold investigation or preliminary inquiry '  , 
+        ' 160: Police officer’s power to require attendance of witnesses '  , 
+        ' 160: Police officer’s power to require attendance of witnesses '  , 
+        ' 161: Examination of witnesses by police '  , 
+        ' 162: Statements to police not to be signed: Use of statements in evidence '  , 
+        ' 163: No inducement to be offered '  , 
+        ' 164: Recording of confessions and statements '  , 
+        ' 165: Search by police officer '  , 
+        ' 166: When officer in charge of police station may require another to issue search-warrant '  , 
+        ' 167: Procedure when investigation cannot be completed in twenty-four hours '  , 
+        ' 168: Report of investigation by subordinate police officer '  , 
+        ' 169: Release of accused when evidence deficient '  , 
+        ' 170: Cases to be sent to Magistrate, when evidence is sufficient '  , 
+        ' 171: Complainant and witnesses not to be required to accompany police officer and not to be subjected to restraint '  , 
+        ' 172: Diary of proceedings in investigation '  , 
+        ' 173: Report of police officer on completion of investigation '  , 
+        ' 174: Police to enquire and report on suicide, etc '  , 
+        ' 175: Power to summon persons '  , 
+        ' 176: Inquiry by Magistrate into cause of death '  , 
+        ' 177: Ordinary place of inquiry and trial '  , 
+        ' 178: Place of inquiry or trial '  , 
+        ' 179: Offence triable where act is done or consequence ensues '  , 
+        ' 180: Place of trial where act is an offence by reason of relation to other offence '  , 
+        ' 181: Place of trial in case of certain offences '  , 
+        ' 182: Offences committed by letters, etc '  , 
+        ' 183: Offence committed on journey or voyage '  , 
+        ' 184: Place of trial for offences triable together '  , 
+        ' 185: Power to order cases to be tried in different sessions divisions '  , 
+        ' 186: High Court to decide, in case of doubt, district where inquiry or trial shall take place '  , 
+        ' 187: Power to issue summons or warrant for offence committed beyond local jurisdiction '  , 
+        ' 188: Offence committed outside India '  , 
+        ' 189: Receipt of evidence relating to offences committed outside India '  , 
+        ' 190: Cognizance of offences by Magistrates '  , 
+        ' 191: Transfer on application of the accused '  , 
+        ' 192: Making over of cases to Magistrates '  , 
+        ' 193: Cognizance of offences by Courts of Session '  , 
+        ' 193: Cognizance of offences by Courts of Session '  , 
+        ' 194: Additional and Assistant Sessions Judges to try cases made over to them '  , 
+        ' 194: Additional and Assistant Sessions Judges to try cases made over to them '  , 
+        ' 195: Prosecution for contempt of lawful authority of public servants, for offences against public justice and for offences relating to documents given in evidence '  , 
+        ' 196: Prosecution for offences against the State and for criminal conspiracy to commit such offence '  , 
+        ' 196: Prosecution for offences against the State and for criminal conspiracy to commit such offence '  , 
+        ' 197: Prosecution of Judges and public servants '  , 
+        ' 198: Prosecution for offences against marriage '  , 
+        ' 199: Prosecution for defamation '  , 
+        ' 200: Examination of complainant '  , 
+        ' 201: Procedure by Magistrate not competent to take cognizance of the case '  , 
+        ' 201: Procedure by Magistrate not competent to take cognizance of the case '  , 
+        ' 202: Postponement of issue of process '  , 
+        ' 203: Dismissal of complaint '  , 
+        ' 204: Issue of process '  , 
+        ' 205: Magistrate may dispense with personal attendance of accused '  , 
+        ' 206: Special summons in cases of petty offence '  , 
+        ' 207: Supply to the accused of copy of police report and other documents '  , 
+        ' 207: Supply to the accused of copy of police report and other documents '  , 
+        ' 208: Supply of copies of statements and documents to accused in other cases triable by Court of Session '  , 
+        ' 209: Commitment of case to Court of Session when offence is triable exclusively by it '  , 
+        ' 210: Procedure to be followed when there is a complaint case and police investigation in respect of the same offence '  , 
+        ' 211: Contents of charge '  , 
+        ' 212: Particulars as to time, place and person '  , 
+        ' 213: When manner of committing offence must be stated '  , 
+        ' 214: Words in charge taken in sense of law under which offence is punishable '  , 
+        ' 215: Effect of errors '  , 
+        ' 216: Court may alter charge '  , 
+        ' 217: Recall of witnesses when charge altered '  , 
+        ' 218: Separate charges for distinct offences '  , 
+        ' 219: Three offences of same kind within year may be charged together '  , 
+        ' 219: Three offences of same kind within year may be charged together '  , 
+        ' 220: Trial for more than one offence '  , 
+        ' 221: Where it is doubtful what offence has been committed '  , 
+        ' 222: When offence proved included in offence charged '  , 
+        ' 223: What persons may be charged jointly '  , 
+        ' 224: Withdrawal of remaining charges on conviction on one of several charges '  , 
+        ' 225: Trial to be conducted by Public Prosecutor '  , 
+        ' 226: Opening case for prosecution '  , 
+        ' 227: Discharge '  , 
+        ' 228: Framing of charge '  , 
+        ' 229: Conviction on plea of guilty '  , 
+        ' 230: Date for prosecution evidence '  , 
+        ' 231: Evidence for prosecution '  , 
+        ' 232: Acquittal '  , 
+        ' 233: Entering upon defence '  , 
+        ' 234: Arguments '  , 
+        ' 235: Judgment of acquittal or conviction '  , 
+        ' 236: Previous conviction '  , 
+        ' 237: Procedure in cases instituted under section 199(2) '  , 
+        ' 237: Procedure in cases instituted under section 199(2) '  , 
+        ' 238: Compliance with section 207 '  , 
+        ' 238: Compliance with section 207 '  , 
+        ' 239: When accused shall be discharged '  , 
+        ' 240: Framing of charge '  , 
+        ' 241: Conviction on plea of guilty '  , 
+        ' 242: Evidence for prosecution '  , 
+        ' 243: Evidence for defence '  , 
+        ' 244: Evidence for prosecution '  , 
+        ' 245: When accused shall be discharged '  , 
+        ' 246: Procedure where accused is not discharged '  , 
+        ' 247: Evidence for defence '  , 
+        ' 248: Acquittal or conviction '  , 
+        ' 249: Absence of complainant '  , 
+        ' 250: Compensation for accusation without reasonable cause '  , 
+        ' 251: Substance of accusation to be stated '  , 
+        ' 252: Conviction on plea of guilty '  , 
+        ' 253: Conviction on plea of guilty in absence of accused in petty cases '  , 
+        ' 254: Procedure when not convicted '  , 
+        ' 255: Acquittal or conviction '  , 
+        ' 256: Non-appearance or death of complainant '  , 
+        ' 257: Withdrawal of complaint '  , 
+        ' 258: Power to stop proceedings in certain cases '  , 
+        ' 259: Power of Court to convert summons-cases into warrant-cases '  , 
+        ' 260: Power to try summarily '  , 
+        ' 261: Summary trial by Magistrate of the second class '  , 
+        ' 262: Procedure for summary trials '  , 
+        ' 263: Record in summary trials '  , 
+        ' 264: Judgment in cases tried summarily '  , 
+        ' 265: Language of record and judgment '  , 
+        ' 266: Definitions '  , 
+        ' 267: Power to require attendance of prisoners '  , 
+        ' 268: Power of State Government to exclude certain persons from operation of section 267 '  , 
+        ' 269: Officer in charge of prison to abstain from carrying out order in certain contingencies '  , 
+        ' 270: Prisoner to be brought to Court in custody '  , 
+        ' 271: Power to issue commission for examination of witness in prison '  , 
+        ' 272: Language of Courts '  , 
+        ' 273: Evidence to be taken in presence of accused '  , 
+        ' 274: Record in summons-cases and inquiries '  , 
+        ' 275: Record in warrant-cases '  , 
+        ' 276: Record in trial before Court of Session '  , 
+        ' 277: Language of record of evidence '  , 
+        ' 278: Procedure in regard to such evidence when completed '  , 
+        ' 279: Interpretation of evidence to accused or his pleader '  , 
+        ' 280: Remarks respecting demeanour of witness '  , 
+        ' 281: Record of examination of accused '  , 
+        ' 282: Interpreter to be bound to interpret truthfully '  , 
+        ' 283: Record in High Court '  , 
+        ' 284: When attendance of witness may be dispensed with and commission issued '  , 
+        ' 285: Commission to whom to be issued '  , 
+        ' 286: Execution of commissions '  , 
+        ' 287: Parties may examine witnesses '  , 
+        ' 288: Return of commission '  , 
+        ' 289: Adjournment of proceeding '  , 
+        ' 290: Execution of foreign commissions '  , 
+        ' 291: Deposition of medical witness '  , 
+        ' 292: Evidence of officers of the Mint '  , 
+        ' 293: Reports of certain Government scientific experts '  , 
+        ' 294: No formal proof of certain documents '  , 
+        ' 295: Affidavit in proof of conduct of public servants '  , 
+        ' 296: Evidence of formal character on affidavit '  , 
+        ' 297: Authorities before whom affidavits may be sworn '  , 
+        ' 298: Previous conviction or acquittal how proved '  , 
+        ' 299: Record of evidence in absence of accused '  , 
+        ' 300: Person once convicted or acquitted not to be tried for same offence '  , 
+        ' 301: Appearance by Public Prosecutors '  , 
+        ' 302: Permission to conduct prosecution '  , 
+        ' 303: Right of person against whom proceedings are instituted to be defended '  , 
+        ' 304: Legal aid to accused at State expense in certain cases '  , 
+        ' 305: Procedure when corporation or registered society is an accused '  , 
+        ' 306: Tender of pardon to accomplice '  , 
+        ' 307: Power to direct tender of pardon '  , 
+        ' 308: Trial of person not complying with conditions of pardon '  , 
+        ' 309: Power to postpone or adjourn proceedings '  , 
+        ' 310: Local inspection '  , 
+        ' 311: Power to summon material witness, or examine person present '  , 
+        ' 312: Expenses of complainants and witnesses '  , 
+        ' 313: Power to examine the accused '  , 
+        ' 314: Oral arguments and memorandum of arguments '  , 
+        ' 315: Accused person to be competent witness '  , 
+        ' 316: No influence to be used to induce disclosure '  , 
+        ' 317: Provision for inquiries and trial being held in the absence of accused in certain cases '  , 
+        ' 318: Procedure where accused does not understand proceedings '  , 
+        ' 319: Power to proceed against other persons appearing to be guilty of offence '  , 
+        ' 320: Compounding of offences '  , 
+        ' 321: Withdrawal from prosecution '  , 
+        ' 322: Procedure in cases which Magistrate cannot dispose of '  , 
+        ' 323: Procedure when, after commencement of inquiry or trial, Magistrate finds case should be committed '  , 
+        ' 324: Trial of persons previously convicted of offences against coinage, stamp-law or property '  , 
+        ' 325: Procedure when Magistrate cannot pass sentence sufficiently severe '  , 
+        ' 326: Conviction or commitment on evidence partly recorded by one Magistrate and partly by another '  , 
+        ' 327: Court to be open '  , 
+        ' 328: Procedure in case of accused being lunatic '  , 
+        ' 329: Procedure in case of person of unsound mind tried before Court '  , 
+        ' 330: Release of person of unsound mind pending investigation or trial '  , 
+        ' 331: Resumption of inquiry or trial '  , 
+        ' 332: Procedure on accused appearing before Magistrate or Court '  , 
+        ' 333: When accused appears to have been of sound mind '  , 
+        ' 334: Judgment of acquittal on ground of unsoundness of mind '  , 
+        ' 335: Person acquitted on such ground to be detained in safe custody '  , 
+        ' 336: Power of State Government to empower officer-in-charge to discharge '  , 
+        ' 337: Procedure where lunatic prisoner is reported capable of making his defence '  , 
+        ' 338: Procedure where lunatic detained is declared fit to be released '  , 
+        ' 339: Delivery of lunatic to care of relative or friend '  , 
+        ' 340: Procedure in cases mentioned in section 195 '  , 
+        ' 341: Appeal '  , 
+        ' 342: Power to order costs '  , 
+        ' 343: Procedure of Magistrate taking cognizance '  , 
+        ' 344: Summary procedure for trial for giving false evidence '  , 
+        ' 345: Procedure in certain cases of contempt '  , 
+        ' 346: Procedure where Court considers that case should not be dealt with under section 345 '  , 
+        ' 347: When Registrar or Sub-Registrar to be deemed a Civil Court '  , 
+        ' 348: Discharge of offender on submission of apology '  , 
+        ' 349: Imprisonment or committal of person refusing to answer or produce document '  , 
+        ' 350: Summary procedure for punishment for non-attendance by a witness in obedience to summons '  , 
+        ' 351: Appeals from convictions under sections 344, 345, 349 and 350 '  , 
+        ' 352: Certain Judges and Magistrates not to try certain offences when committed before themselves '  , 
+        ' 353: Judgment '  , 
+        ' 354: Language and contents of judgment '  , 
+        ' 355: Metropolitan Magistrate judgment '  , 
+        ' 356: Order for notifying address of previously convicted offender '  , 
+        ' 357: Order to pay compensation '  , 
+        ' 358: Compensation to persons groundlessly arrested '  , 
+        ' 359: Order to pay costs in non-cognizable cases '  , 
+        ' 360: Order to release on probation of good conduct or after admonition '  , 
+        ' 361: Special reasons to be recorded in certain cases '  , 
+        ' 362: Court not to alter judgment '  , 
+        ' 363: Copy of judgment to be given to the accused and other persons '  , 
+        ' 364: Judgment when to be translated '  , 
+        ' 365: Court of Session to send copy of finding and sentence to District Magistrate '  , 
+        ' 366: Sentence of death to be submitted by Court of Session for confirmation '  , 
+        ' 367: Power to direct further inquiry to be made or additional evidence to be taken '  , 
+        ' 368: Power of High Court to confirm sentence or annul conviction '  , 
+        ' 369: Confirmation or new sentence to be signed by two Judges '  , 
+        ' 370: Procedure in case of difference of opinion '  , 
+        ' 371: Procedure in cases submitted to High Court for confirmation '  , 
+        ' 372: No appeal to lie unless otherwise provided '  , 
+        ' 373: Appeal from orders requiring security or refusal to accept or rejecting surety for keeping peace or good behaviour '  , 
+        ' 374: Appeals from convictions '  , 
+        ' 375: No appeal in certain cases when accused pleads guilty '  , 
+        ' 376: No appeal in petty cases '  , 
+        ' 377: Appeal by the State Government against sentence '  , 
+        ' 378: Appeal in case of acquittal '  , 
+        ' 379: Appeal against conviction by High Court in certain cases '  , 
+        ' 380: Special right of appeal in certain cases '  , 
+        ' 381: Appeal to Court of Session how heard '  , 
+        ' 382: Petition of appeal '  , 
+        ' 383: Procedure when appellant in jail '  , 
+        ' 384: Summary dismissal of appeal '  , 
+        ' 385: Procedure for hearing appeals not dismissed summarily '  , 
+        ' 386: Powers of the Appellate Court '  , 
+        ' 387: Judgments of Subordinate Appellate Court '  , 
+        ' 388: Order of High Court on appeal to be certified to lower Court '  , 
+        ' 389: Suspension of sentence pending the appeal; release of appellant on bail '  , 
+        ' 390: Arrest of accused in appeal from acquittal '  , 
+        ' 391: Appellate Court may take further evidence or direct it to be taken '  , 
+        ' 392: Procedure where Judges of Court of Appeal are equally divided '  , 
+        ' 393: Finality of judgments and orders on appeal '  , 
+        ' 394: Abatement of appeals '  , 
+        ' 395: Reference to High Court '  , 
+        ' 396: Disposal of case according to decision of High Court '  , 
+        ' 397: Calling for records to exercise powers of revision '  , 
+        ' 398: Power to order inquiry '  , 
+        ' 399: Sessions Judge powers of revision '  , 
+        ' 400: Power of Additional Sessions Judge '  , 
+        ' 401: High Court powers of revision '  , 
+        ' 402: Power of High Court to withdraw or transfer revision cases '  , 
+        ' 403: Option of Court to hear parties '  , 
+        ' 404: Statement by Metropolitan Magistrate of ground of his decision to be considered by High Court '  , 
+        ' 404: Statement by Metropolitan Magistrate of ground of his decision to be considered by High Court '  , 
+        ' 405: High Court order to be certified to lower Court '  , 
+        ' 406: Power of Supreme Court to transfer cases and appeals '  , 
+        ' 407: Power of High Court to transfer cases and appeals '  , 
+        ' 408: Power of Sessions Judge to transfer cases and appeals '  , 
+        ' 409: Withdrawal of cases and appeals by Sessions Judges '  , 
+        ' 410: Withdrawal of cases by Judicial Magistrate '  , 
+        ' 411: Making over or withdrawal of cases by Executive Magistrates '  , 
+        ' 412: Reasons to be recorded '  , 
+        ' 413: Execution of order passed under section 368 '  , 
+        ' 414: Execution of sentence of death passed by High Court '  , 
+        ' 415: Postponement of execution of sentence of death in case of appeal to Supreme Court '  , 
+        ' 416: Postponement of capital sentence on pregnant woman '  , 
+        ' 417: Power to appoint place of imprisonment '  , 
+        ' 418: Execution of sentence of imprisonment '  , 
+        ' 419: Direction of warrant for execution '  , 
+        ' 420: Warrant with whom to be lodged '  , 
+        ' 421: Warrant for levy of fine '  , 
+        ' 422: Effect of such warrant '  , 
+        ' 423: Warrant for levy of fine issued by a Court in any territory to which this Code does not extend '  , 
+        ' 424: Suspension of execution of sentence of imprisonment '  , 
+        ' 425: Who may issue warrant '  , 
+        ' 426: Sentence on escaped convict when to take effect '  , 
+        ' 427: Sentence on offender already sentenced for another offence '  , 
+        ' 428: Period of detention undergone by the accused to be set off against the sentence of imprisonment '  , 
+        ' 429: Saving '  , 
+        ' 430: Return of warrant on execution of sentence '  , 
+        ' 431: Money ordered to be paid recoverable as a fine '  , 
+        ' 432: Power to suspend or remit sentences '  , 
+        ' 433: Power to commute sentence '  , 
+        ' 434: Concurrent power of Central Government in case of death sentences '  , 
+        ' 435: State Government to act after consultation with Central Government in certain cases '  , 
+        ' 436: In what cases bail to be taken '  , 
+        ' 437: When bail may be taken in case of non-bailable offence '  , 
+        ' 438: Direction for grant of bail to person apprehending arrest '  , 
+        ' 439: Special powers of High Court or Court of Session regarding bail '  , 
+        ' 440: Amount of bond and reduction thereof '  , 
+        ' 441: Bond of accused and sureties '  , 
+        ' 442: Discharge from custody '  , 
+        ' 443: Power to order sufficient bail when that first taken is insufficient '  , 
+        ' 444: Discharge of sureties '  , 
+        ' 445: Deposit instead of recognizance '  , 
+        ' 446: Procedure when bond has been forfeited '  , 
+        ' 447: Procedure in case of insolvency of death of surety or when a bond is forfeited '  , 
+        ' 448: Bond required from minor '  , 
+        ' 449: Appeal from orders under section 446 '  , 
+        ' 450: Power to direct levy of amount due on certain recognizances '  , 
+        ' 451: Order for custody and disposal of property pending trial in certain cases '  , 
+        ' 452: Order for disposal of property at conclusion of trial '  , 
+        ' 453: Payment to innocent purchaser of money found on accused '  , 
+        ' 454: Appeal against orders under section 452 or section 453 '  , 
+        ' 455: Destruction of libellous and other matter '  , 
+        ' 456: Power to restore possession of immovable property '  , 
+        ' 457: Procedure by police upon seizure of property '  , 
+        ' 458: Procedure where no claimant appears within six months '  , 
+        ' 459: Power to sell perishable property '  , 
+        ' 460: Irregularities which do not vitiate proceedings '  , 
+        ' 461: Irregularities which vitiate proceedings '  , 
+        ' 462: Proceedings in wrong place '  , 
+        ' 463: Non-compliance with provisions of section 164 or section 281 '  , 
+        ' 464: Effect of omission to frame, or absence of, or error in, charge '  , 
+        ' 465: Finding or sentence when reversible by reason of error, omission or irregularity '  , 
+        ' 466: Defect or error not to make attachment unlawful '  , 
+        ' 467: Definitions '  , 
+        ' 468: Bar to taking cognizance after lapse of the period of limitation '  , 
+        ' 469: Commencement of the period of limitation '  , 
+        ' 470: Exclusion of time in certain cases '  , 
+        ' 471: Exclusion of date on which Court is closed '  , 
+        ' 472: Continuing offence '  , 
+        ' 473: Extension of period of limitation in certain cases '  , 
+        ' 474: Trials before High Courts '  , 
+        ' 475: Delivery to commanding officers of persons liable to be tried by Court-martial '  , 
+        ' 476: Forms '  , 
+        ' 477: Power of High Court to make rules '  , 
+        ' 478: Power to alter functions allocated to Executive Magistrate in certain cases '  , 
+        ' 479: Case in which Judge or Magistrate is personally interested '  , 
+        ' 480: Practising pleader not to sit as Magistrate in certain Courts '  , 
+        ' 481: Public servant concerned in sale not to purchase or bid for property '  , 
+        ' 482: Saving of inherent power of High Court '  , 
+        ' 483: Duty of High Court to exercise continuous superintendence over Courts of Judicial Magistrates '  , 
+        ' 484: Repeal and savings '  , 
+        ' 105A: Definitions '  , 
+        ' 105B: Assistance in securing transfer of persons '  , 
+        ' 105C: Assistance in relation to orders of attachment or forfeiture of property '  , 
+        ' 105D: Identifying unlawfully acquired property '  , 
+        ' 105E: Seizure or attachment of property '  , 
+        ' 105F: Management of properties seized or forfeited under this Chapter '  , 
+        ' 105G: Notice of forfeiture of property '  , 
+        ' 105H: Forfeiture of property in certain cases '  , 
+        ' 105-I: Fine in lieu of forfeiture '  , 
+        ' 105J: Certain transfers to be null and void '  , 
+        ' 105K: Procedure in respect of letter of request '  , 
+        ' 105L: Application of this Chapter '  , 
+        ' 144A:Power to prohibit carrying arms in procession or mass drill or mass training with arms '  , 
+        ' 144A:Power to prohibit carrying arms in procession or mass drill or mass training with arms '  , 
+        ' 164A: Medical examination of the victim of rape '  , 
+        ' 166A: Letter of request to competent authority for investigation in a country or place outside India '  , 
+        ' 166B: Letter of request from a country or place outside India to a Court or an authority for investigation in India '  , 
+        ' 195A: Procedure for witnesses in case of threatening, etc '  , 
+        ' 198A: Prosecution of offences under section 498A of the Indian Penal Code '  , 
+        ' 198A: Prosecution of offences under section 498A of the Indian Penal Code '  , 
+        ' 198B: Cognizance of offence '  , 
+        ' 25A: Directorate of Prosecution '  , 
+        ' 265A: Application of the Chapter '  , 
+        ' 265B: Application for plea bargaining '  , 
+        ' 265C: Guidelines for mutually satisfactory disposition '  , 
+        ' 265D: Report of the mutually satisfactory disposition to be submitted before the Court '  , 
+        ' 265E: Disposal of the case '  , 
+        ' 265F: Judgment of the Court '  , 
+        ' 265G: Finality of the judgment '  , 
+        ' 265H: Power of the Court in plea bargaining '  , 
+        ' 265-I: Period of detention undergone by the accused to be set-off against the sentence of imprisonment '  , 
+        ' 265J: Savings '  , 
+        ' 265K: Statements of accused not to be used '  , 
+        ' 265L: Non-application of the Chapter '  , 
+        ' 291A: Identification report of Magistrate '  , 
+        ' 311A: Power of Magistrate to order person to give specimen signatures or handwriting '  , 
+        ' 357A: Victim compensation scheme '  , 
+        ' 357B: Compensation to be in addition to fine under section 326A or section 376D of Indian Penal Code '  , 
+        ' 357B: Compensation to be in addition to fine under section 326A or section 376D of Indian Penal Code '  , 
+        ' 357C: Treatment of victims '  , 
+        
+        ' 41A: Notice of appearance before police officer '  , 
+        ' 41B: Procedure of arrest and duties of officer making arrest '  , 
+         
+        ' 41C: Control room at districts '  , 
+        ' 41D: Right of arrested person to meet an advocate of his choice during interrogation '  , 
+        ' 433A: Restriction on powers of remission or commutation in certain cases '  , 
+        ' 436A: Maximum period for which an undertrial prisoner can be detained '  , 
+        ' 437A: Bail to require accused to appear before next appellate Court '  , 
+        ' 441A: Declaration by sureties '  , 
+        ' 446A: Cancellation of bond and bail bond '  , 
+        ' 50A: Obligation of person making arrest to inform about the arrest, etc , to a nominated person '  , 
+        ' 53A: Examination of person accused of rape by medical practitioner '  , 
+        ' 54A: Identification of person arrested '  , 
+        ' 55A: Health and safety of arrested person '  , 
+        ' 60A: Arrest to be made strictly according to the Code '  , 
+       
+
+               ];
+
+        const searchBox = document.getElementById('search-box');
+        const autocompleteItems = document.getElementById('autocomplete-items');
+
+        searchBox.addEventListener('input', function() {
+            const inputValue = this.value.toLowerCase();
+            autocompleteItems.innerHTML = '';
+            if (inputValue.length === 0) {
+                return;
+            }
+
+            const matchingItems = data.filter(item => item.toLowerCase().includes(inputValue));
+            matchingItems.forEach(item => {
+                const index = item.toLowerCase().indexOf(inputValue);
+                const highlighted = item.substring(0, index) + "<strong>" + item.substring(index, index + inputValue.length) + "</strong>" + item.substring(index + inputValue.length);
+                const autocompleteItem = document.createElement('div');
+                autocompleteItem.innerHTML = highlighted;
+                autocompleteItem.classList.add('autocomplete-item');
+                autocompleteItem.addEventListener('click', function() {
+                    searchBox.value = item;
+                    autocompleteItems.innerHTML = '';
+                });
+                autocompleteItems.appendChild(autocompleteItem);
+            });
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!autocompleteItems.contains(e.target)) {
+                autocompleteItems.innerHTML = '';
+            }
+        });
+    </script>
+
+
+    <script src="crpc.js"></script>
+</body>
+</html>
